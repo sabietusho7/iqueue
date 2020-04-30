@@ -1,0 +1,93 @@
+<html>
+
+<head>
+    <title>iQueue - Sign Up</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/sign-up.css">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"></script>
+    <script src="code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+        body {
+            background: #6d7fcc;
+
+        }
+
+        .error {
+            color: #bf1800;
+            margin-top: 10px;
+            text-align: left;
+            margin-bottom: 0px;
+            font-size:15px;
+        }
+    </style>
+</head>
+<body>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="container" id="wrap">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="r" method="post" accept-charset="utf-8" class="form" role="form">
+                    <h1>iQueue Sign Up</h1>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <input type="text" name="firstname"
+                                   
+                                   class="form-control input-lg"
+                                   placeholder="First Name"/>
+                           
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <input type="text" name="lastname"
+                                  
+                                   class="form-control input-lg"
+                                   placeholder="Last Name"/>
+                           
+                        </div>
+                    </div>
+                    <br>
+                    <input type="text" name="email" value=""
+                           class="form-control input-lg"
+                           placeholder="Your Email"/>
+                   
+                    <br>
+                    <input type="text" name="username"
+                           value=""
+                           class="form-control input-lg"
+                           placeholder="Username"/>
+                   
+                    <br>
+                    <input type="password" name="password" value="" class="form-control input-lg"
+                           placeholder="Password"/>
+                   
+                    <br>
+                    <input type="password" name="confirm_password" value="" class="form-control input-lg"
+                           placeholder="Confirm Password"/>
+
+                   
+                    <br>
+                    <input type="text" name="phone" value=""
+                           class="form-control input-lg"
+                           placeholder="Phone Number"/>
+                   
+                    <br>
+
+                    <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit" name="signUp">
+                        Create my account
+                    </button>
+
+                    <br>
+                    <button class="btn btn-danger btn-lg " type="submit" name="goBack">
+                        Go Back
+                    </button>
+                </form>
+            </div>
+        </div>
+</form>
+</div>
+
+
+</body>
+</html>
