@@ -59,5 +59,13 @@
      public function executeQuery($query){
          return mysqli_query($this->getDB(),$query);
      }
+
+     public function getRealEscapeString($parameter) {
+                return mysqli_real_escape_string($this->getDB(), $parameter);
+    }
  
+    public function getGeneratedId()
+        {
+            return mysqli_insert_id($this->getDB());
+       }
  }
