@@ -110,6 +110,21 @@ class UserDAO extends DBLayer
         }
         return $userTypes;
     }
+    public function updateUser(User $user)
+    {
+        $query = "UPDATE `user` SET 
+             `Username` = '{$this->getRealEscapeString($user->getUsername())}',
+             `Password` = '".md5($this->getRealEscapeString($user->getPassword()))."',
+             `Name` = '{$this->getRealEscapeString($user->getName())}', 
+             `Surname` = '{$this->getRealEscapeString($user->getSurname())}', 
+             `Email` = '{$this->getRealEscapeString($user->getEmail())}',
+             `Phone` = '{$this->getRealEscapeString($user->getPhone())}',
+             `IsActive` = '{$this->getRealEscapeString($user->getisActive())}'
+              WHERE `ID` = {$this->getRealEscapeString($user->getId())}";
+
+
+        $this->executeQuery($query);
+    }
 
     // End UserType
 
