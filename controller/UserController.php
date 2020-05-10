@@ -56,4 +56,9 @@ class UserController
         $userDao = new UserDAO();
         return $userDao->saveUserWithActive($user);
     }
+    public function updateUserNoPass(User $user){
+        $userDao = new UserDAO();
+        return $userDao->updateUserNoPassword($user);
+    }
 }
+
