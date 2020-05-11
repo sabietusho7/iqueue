@@ -3,6 +3,7 @@
 
 require_once '../db/BusinessDAO.php';
 require_once 'UserController.php';
+require_once '../model/BusinessEmployeeHeader.php';
 
 class BusinessController
 {
@@ -22,7 +23,28 @@ class BusinessController
         $business = $arr[0];
         return $business;
     }
-
+	
+	 public function getDeskServiceById($id) {
+       $businessDao = new BusinessDAO();
+       $filter = array("ID" => $id, "BusinessID" => null,"Name"=>null, "SportelistID" => null, "isActive" => null);
+       $deskServices = $businessDao->getDeskService($filter);
+       if($deskServices == null || count($deskServices) == 0) {
+           return null;
+       }
+       return $deskServices[0];
+   }
+   
+      public function getDeskServicesByBusinessId($businessID)
+    {
+        if($businessID == null) {
+            return array();
+        }
+        $filter = array("ID" => null, "BusinessID" => $businessID,"Name"=>null, "SportelistID" => null, "isActive" => null);
+        $businessDao = new BusinessDAO();
+        $deskServices = $businessDao->getDeskService($filter);
+        return $deskServices;
+    }
+	
     public function getBusinessById($id)
     {
         $filter = array("ID" => $id, "Name" => null, "isActive" => null);
