@@ -4,6 +4,7 @@
 
 require_once 'DBLayer.php';
 require_once '../model/Business.php';
+require_once '../model/DeskService.php';
 
 
 
@@ -120,6 +121,56 @@ class BusinessDAO extends DBLayer
             $businessEmployeeHeader->setFreeEmployee($freeEmployee);
 
             array_push($rows, $businessEmployeeHeader);
+        }
+        return $rows;
+    }
+	
+	 public function getDeskService($filter)
+    {
+        $rows = array();
+        $query = "SELECT 
+                 `deskservice`.*,
+                 `user`.`Name` as 'Sportelist Name',
+                 `user`.Surname as 'Sportelist Surname',
+                 `user`.Email as 'Sportelist Email',
+                 `user`.Phone as 'Sportelist Phone',
+                 `user`.IsActive as 'Sportelist IsActive'
+                 FROM `deskservice`
+                 INNER JOIN `user` on `deskservice`.`SportelistID` = `user`.`ID`
+                 WHERE 1=1 ";
+        if ($filter["ID"] != null) {
+            $query .= " AND `deskservice`.`ID`={$this->getRealEscapeString($filter["ID"])} ";
+        }
+        if ($filter["BusinessID"] != null) {
+            $query .= " AND `deskservice`.`BusinessID`='{$this->getRealEscapeString($filter["BusinessID"])}' ";
+        }
+        if ($filter["Name"] != null) {
+            $query .= " AND `deskservice`.`Name`='{$this->getRealEscapeString($filter["Name"])}'";
+        }
+        if ($filter["SportelistID"] != null) {
+            $query .= " AND `deskservice`.`SportelistID`= {$this->getRealEscapeString($filter["SportelistID"])} ";
+        }
+        if ($filter["isActive"] != null) {
+            $query .= " AND `deskservice`.`IsActive`= {$this->getRealEscapeString($filter["isActive"])} ";
+        }
+
+        $result = $this->executeQuery($query);
+        while ($row = $result->fetch_assoc()) {
+            $deskService = new DeskService($row["ID"]);
+            $deskService->setName($row["Name"]);
+            $deskService->setBusinessId($row["BusinessID"]);
+            $deskService->setEtc($row["ETC"]);
+            $deskService->setImgUrl($row["ImgURL"]);
+            $sportelist = new User($row["SportelistID"]);
+            $sportelist->setName($row["Sportelist Name"]);
+            $sportelist->setSurname($row["Sportelist Surname"]);
+            $sportelist->setEmail($row["Sportelist Email"]);
+            $sportelist->setPhone($row["Sportelist Phone"]);
+            $sportelist->setIsActive($row["Sportelist IsActive"]);
+            $deskService->setSportelist($sportelist);
+            $deskService->setCounter($row["Counter"]);
+            $deskService->setIsActive($row["IsActive"]);
+            array_push($rows, $deskService);
         }
         return $rows;
     }
