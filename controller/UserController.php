@@ -44,7 +44,14 @@ class UserController
         $userDao = new UserDAO();
         return $userDao->getUserTypes();
     }
-
+    public function updateUser(User $user){
+        $userDao = new UserDAO();
+        return $userDao->updateUser($user);
+    }
+    public function updateUserNoPass(User $user){
+        $userDao = new UserDAO();
+        return $userDao->updateUserNoPassword($user);
+    }
 
     public function saveUser(User $user) {
 
@@ -56,9 +63,9 @@ class UserController
         $userDao = new UserDAO();
         return $userDao->saveUserWithActive($user);
     }
-    public function updateUserNoPass(User $user){
+  
+    public function deleteUser($userId) {
         $userDao = new UserDAO();
-        return $userDao->updateUserNoPassword($user);
+        $userDao->deleteUser($userId);
     }
 }
-
