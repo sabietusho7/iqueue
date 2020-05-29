@@ -153,6 +153,23 @@ class BusinessController
         $businessDao = new BusinessDAO();
         $businessDao->deleteBusinessEmployeeHeader($businessId, $employeeId);
     }
+    public function getFreeEmployeesByBusinessId($businessId) {
+        if($businessId == null) {
+            return array();
+        }
+        $businessDao = new BusinessDAO();
+        $filter = array("BusinessID" => $businessId, "EmployeeID" => null, "Free"=>true, "IsActive"=>true, "NoManager"=>null);
+        return $businessDao->getBusinessEmployeeHeader($filter);
+    }
+    public function updateDeskService($deskService) {
+        $businessDao = new BusinessDAO();
+        $businessDao->updateServiceDesk($deskService, $deskService->getId());
+    }
+    public function saveDeskService($deskService) {
+        $businessDao = new BusinessDAO();
+        $businessDao->saveDeskService($deskService);
+    }
+
 
 
  
