@@ -125,6 +125,11 @@ class UserDAO extends DBLayer
 
         $this->executeQuery($query);
     }
+    public function deleteUser($id)
+    {
+        $query = "DELETE FROM user WHERE ID = {$this->getRealEscapeString($id)} ";
+        $this->executeQuery($query);
+    }
 
     // End UserType
 
