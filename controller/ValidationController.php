@@ -156,6 +156,6 @@ class ValidationController
             $this->phoneError = "Must be an Albanian phone number : 06XXXXXXXX !";
         }
     }
-
+   
 
 }
