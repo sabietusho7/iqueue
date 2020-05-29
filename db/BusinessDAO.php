@@ -70,6 +70,13 @@ class BusinessDAO extends DBLayer
         }
         return $rows;
     }
+    public function updateBusiness(Business $business, $id)
+    {
+        $query = "UPDATE `business` SET `Name`='{$this->getRealEscapeString($business->getName())}',`Address`='{$this->getRealEscapeString($business->getAddress())}',`Phone`='{$this->getRealEscapeString($business->getPhone())}',`WebsiteURL`='{$this->getRealEscapeString($business->getWebsiteUrl())}',`ImgURL`='{$this->getRealEscapeString($business->getImgUrl())}',`IsActive`='{$this->getRealEscapeString($business->getIsActive())}' WHERE `ID`={$this->getRealEscapeString($id)}";
+        $this->executeQuery($query);
+
+        return mysqli_affected_rows($this->getDB());
+    }
 
    public function getBusinessEmployeeHeader($filter)
     {
@@ -174,5 +181,62 @@ class BusinessDAO extends DBLayer
         }
         return $rows;
     }
+    public function saveDeskService(DeskService $newDeskService)
+    {
+        $query = "INSERT INTO `deskservice` (`Name`, `BusinessId`, `ETC`, `ImgURL`, `SportelistId`, `Counter`, `IsActive`) VALUES ";
+        $this->executeQuery($query . "('{$this->getRealEscapeString($newDeskService->getName())}','{$this->getRealEscapeString($newDeskService->getBusinessId())}','{$this->getRealEscapeString($newDeskService->getEtc())}','{$this->getRealEscapeString($newDeskService->getImgUrl())}','{$this->getRealEscapeString($newDeskService->getSportelist())}','{$this->getRealEscapeString($newDeskService->getCounter())}','{$this->getRealEscapeString($newDeskService->getIsActive())}')");
+    }
+
+    public function updateServiceDesk(DeskService $deskService, $id)
+    {
+        $query = "UPDATE `deskservice` SET `Name`='{$this->getRealEscapeString($deskService->getName())}',`BusinessId`={$this->getRealEscapeString($deskService->getBusinessId())},`ETC`='{$this->getRealEscapeString($deskService->getEtc())}',`ImgURL`='{$this->getRealEscapeString($deskService->getImgUrl())}',`SportelistId`={$this->getRealEscapeString($deskService->getSportelist())},`IsActive`={$this->getRealEscapeString($deskService->getisActive())} WHERE `ID`={$this->getRealEscapeString($id)}";
+
+        $this->executeQuery($query);
+    }
+
+    public function updateDeskServiceStatus($id, $status)
+    {
+        $query = "UPDATE `deskservice` SET `IsActive`={$this->getRealEscapeString($status)} WHERE `ID`={$this->getRealEscapeString($id)}";
+        $this->executeQuery($query);
+    }
+
+    public function updateDeskServiceCounter($id, $counter)
+    {
+        $query = "UPDATE `deskservice` SET `Counter`={$this->getRealEscapeString($counter)} WHERE `ID`={$this->getRealEscapeString($id)}";
+        $this->executeQuery($query);
+    }
+
+    public function getDeskServiceCounter($id)
+    {
+        $query = "SELECT Counter FROM deskservice WHERE ID = {$this->getRealEscapeString($id)}";
+        $result = $this->executeQuery($query);
+        $row = mysqli_fetch_assoc($result);
+        return $row['Counter'];
+    }
+    public function saveBusiness(Business $newBusiness)
+    {
+        $query = "INSERT INTO `business` (`Name`, `Address`, `Phone`, `WebsiteURL`, `ImgURL`, `IsActive`) VALUES ";
+        $this->executeQuery($query . "('{$this->getRealEscapeString($newBusiness->getName())}','{$this->getRealEscapeString($newBusiness->getAddress())}','{$this->getRealEscapeString($newBusiness->getPhone())}','{$this->getRealEscapeString($newBusiness->getWebsiteUrl())}','{$this->getRealEscapeString($newBusiness->getImgUrl())}','{$this->getRealEscapeString($newBusiness->getIsActive())}')");
+
+        return $this->getGeneratedId();
+    }
+    public function saveBusinessEmployeeHeader(BusinessEmployeeHeader $newBusinessEmployeeHeader)
+    {
+        $query = "INSERT INTO `businessemployeeheader`(`BusinessID`, `EmployeeID`) VALUES ({$this->getRealEscapeString($newBusinessEmployeeHeader->getBusinessId())},{$this->getRealEscapeString($newBusinessEmployeeHeader->getEmployeeId())})";
+        $this->executeQuery($query);
+    }
+
+    public function deleteBusinessEmployeeHeader($businessId, $userId)
+    {
+        $query = "DELETE FROM businessemployeeheader WHERE BusinessID = {$this->getRealEscapeString($businessId)} AND EmployeeID = {$this->getRealEscapeString($userId)} ";
+        $this->executeQuery($query);
+    }
+    public function deleteBusiness($id)
+    {
+        $query = "DELETE FROM `business` WHERE `ID`={$this->getRealEscapeString($id)}";
+        $this->executeQuery($query);
+    }
+
+
 
 }
